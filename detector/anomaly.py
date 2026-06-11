@@ -31,7 +31,7 @@ def detect_anomalies(model: IsolationForest, df: pd.DataFrame) -> pd.DataFrame:
 
 def log_anomalies(df: pd.DataFrame):
     anomalies = df[df['is_anomaly'] == True]
-    with open('logs/anomalies.log', 'a') as f:
+    with open('logs/anomalies.log', 'w') as f:
         for timestamp, row in anomalies.iterrows():
             log_entry = f"{datetime.now()} | {timestamp} | close={row['Close']:.2f} | spread={row['daily_spread']:.2f} | z_score={row['z_score']:.2f} | score={row['anomaly_score']:.4f} | change_pct={row['price_change_pct']:.4f}\n"
             f.write(log_entry)
