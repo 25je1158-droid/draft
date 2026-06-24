@@ -1,5 +1,3 @@
-# Stock Anomaly Detector
-
 # Stock Market Anomaly Detection System
 
 ## What it does

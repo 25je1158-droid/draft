@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 import time
 
-def fetch_historical_data(ticker: str, period: str = "6mo") -> pd.DataFrame:
+def fetch_historical_data(ticker: str, period: str = "max") -> pd.DataFrame:
     stock = yf.Ticker(ticker)
     df = stock.history(period=period)
     df = df[['Open', 'High', 'Low', 'Close', 'Volume']]
