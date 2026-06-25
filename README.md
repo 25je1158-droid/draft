@@ -102,28 +102,28 @@ Produced: 2024-01-03 close=184.70
 ...
 
 ANOMALY DETECTED:
-2026-06-11 15:35:24
-close=173.44
-spread=8.25
-z_score=-2.91
-score=-0.1821
-change_pct=-0.0542
+- 2026-06-11 15:35:24
+- close=173.44
+- spread=8.25
+- z_score=-2.91
+- score=-0.1821
+- change_pct=-0.0542
 
 Total anomalies detected: 16 out of 484 trading days
 ## Tech Stack
-Language: Python
-API Framework: FastAPI
-Data Source: yfinance
-Data Processing: Numpy,Pandas
-Machine Learning: Isolation Forest(Scikit-learn)
-Streaming: Redis
-Server: Uvicorn
-Logging: Python I/O
+-Language: Python
+-API Framework: FastAPI
+-Data Source: yfinance
+-Data Processing: Numpy,Pandas
+-Machine Learning: Isolation Forest(Scikit-learn)
+-Streaming: Redis
+-Server: Uvicorn
+-Logging: Python I/O
 ## Key Design Decisions
-**Isolation Forest** was selected because it efficiently detects anomalies in high-dimensional financial datasets without requiring labeled examples. Contamination to isolated forest set to 3% since 1-2% is too less and actual outliers might be missed upon and anything more than 4-5% is too high and contains noise.Also 3% would approximately coresspond to 3 significant market events per year which match historical reality for AAPL.
-**Isolation Forest** was chosen over **Z-Score** because simple z score would flag a week of continuous high trades because it's a single feature as outlier whereas isolation forest works with numerous features at a time and entries not clearing maximum checkpoints are declared outliers hence it is more useful.
-**Redis Streams** simulate a real-time stock data feed while maintaining a decoupled architecture between producers and consumers.
-**Redis stream** was chosen over queue because a regular queue is destructive — once a message is consumed it's gone. If the detector crashes mid-processing, the data is lost permanently. Redis Streams are persistent and replayable — every message stays in the stream with a unique ID. If the detector crashes, it can resume from exactly where it left off. Multiple consumers can also read the same stream independently.
-Rolling statistical features (rolling mean, standard deviation, z-score, and price changes) capture local market behavior and improve anomaly detection accuracy. 
-**Idea behind selection of features** Daily_Spread (catures variance of the day (high- low) unusually high volatality showcases abnormality), Z_Score(measure of how close daily data is from rolling mean of 20 days), Price_Change_Percentage(captures single day deviation used when there exists a series of consecutive highs or lows since otherwise the entirety of days showcasing abnormal high or low would get flagged) and Volume(a confirmation signal anomalous price on high volume shows real market activity rather than thin market noise)
-To handle Redis failure, the producer implements retry with exponential backoff, and Redis AOF persistence can be enabled to recover stream state on restart.
+-**Isolation Forest** was selected because it efficiently detects anomalies in high-dimensional financial datasets without requiring labeled examples. Contamination to isolated forest set to 3% since 1-2% is too less and actual outliers might be missed upon and anything more than 4-5% is too high and contains noise.Also 3% would approximately coresspond to 3 significant market events per year which match historical reality for AAPL.
+-**Isolation Forest** was chosen over **Z-Score** because simple z score would flag a week of continuous high trades because it's a single feature as outlier whereas isolation forest works with numerous features at a time and entries not clearing maximum checkpoints are declared outliers hence it is more useful.
+-**Redis Streams** simulate a real-time stock data feed while maintaining a decoupled architecture between producers and consumers.
+-**Redis stream** was chosen over queue because a regular queue is destructive — once a message is consumed it's gone. If the detector crashes mid-processing, the data is lost permanently. Redis Streams are persistent and replayable — every message stays in the stream with a unique ID. If the detector crashes, it can resume from exactly where it left off. Multiple consumers can also read the same stream independently.
+-Rolling statistical features (rolling mean, standard deviation, z-score, and price changes) capture local market behavior and improve anomaly detection accuracy. 
+-**Idea behind selection of features** Daily_Spread (catures variance of the day (high- low) unusually high volatality showcases abnormality), Z_Score(measure of how close daily data is from rolling mean of 20 days), Price_Change_Percentage(captures single day deviation used when there exists a series of consecutive highs or lows since otherwise the entirety of days showcasing abnormal high or low would get flagged) and Volume(a confirmation signal anomalous price on high volume shows real market activity rather than thin market noise)
+-To handle Redis failure, the producer implements retry with exponential backoff, and Redis AOF persistence can be enabled to recover stream state on restart.
