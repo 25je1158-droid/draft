@@ -47,7 +47,7 @@ def calculate_features(df: pd.DataFrame) -> pd.DataFrame:
         df['rolling_mean'] = df['Close'].rolling(window=Config.ROLLING_WINDOW).mean()
         df['rolling_std'] = df['Close'].rolling(window=Config.ROLLING_WINDOW).std()
         df['z_score'] = (df['Close'] - df['rolling_mean']) / df['rolling_std']
-        df['price_change_pct'] = df['Close'].pct_change()
+        df['price_change_pct'] = df['Close'].pct_change(fill_method=None)
         
         initial_len = len(df)
         df.dropna(inplace=True)
