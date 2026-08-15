@@ -353,7 +353,6 @@ Z-Score achieved highest recall (56.2%) on the 48-row validation sample. However
 ---
 ## Sample Output
 
-```bash
 ## Anomaly Visualization
 ![AAPL Anomaly Detection](notebooks/output.png)
 
