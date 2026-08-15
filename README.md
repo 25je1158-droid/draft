@@ -65,7 +65,19 @@ Data Layer → Processing Layer → Output Layer
 
 ---
 
-## 🚀 Quick Start
+
+
+## Quickstart
+## Quickstart
+git clone https://github.com/25je1158-droid/draft
+cd draft
+pip install -r requirements.txt
+python -m detector.anomaly
+python -m uvicorn api.main:app --reload
+
+
+
+## 🚀 How to run?
 
 ### Prerequisites
 - Python 3.8+
@@ -340,6 +352,12 @@ Z-Score achieved highest recall (56.2%) on the 48-row validation sample. However
 | String-based log parsing | Structured JSON/models | Robustness, extensibility |
 
 ---
+## Sample Output
+
+```bash
+## Anomaly Visualization
+![AAPL Anomaly Detection](logs/anomaly_plot.png)
+
 
 ## 📚 Tech Stack
 
