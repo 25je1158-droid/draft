@@ -68,12 +68,11 @@ Data Layer → Processing Layer → Output Layer
 
 
 ## Quickstart
-## Quickstart
-git clone https://github.com/25je1158-droid/draft
-cd draft
-pip install -r requirements.txt
-python -m detector.anomaly
-python -m uvicorn api.main:app --reload
+-git clone https://github.com/25je1158-droid/draft
+-cd draft
+-pip install -r requirements.txt
+-python -m detector.anomaly
+-python -m uvicorn api.main:app --reload
 
 
 
