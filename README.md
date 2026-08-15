@@ -321,6 +321,8 @@ pytest tests/ --cov=detector --cov=api --cov=data
 - **Centralized config.py**: Single source of truth, validates on import, supports inheritance
 - **Tradeoff**: Extra file but enables environment switching (dev/test/prod)
 
+### 11. **Model Comparison Methodology**
+Z-Score achieved highest recall (56.2%) on the 48-row validation sample. However this reflects a known limitation — Isolation Forest and LOF require sufficient data to model normal behavior accurately. On the full 483-day dataset, Isolation Forest correctly identifies real market events including the April 2025 tariff crash and August 2024 carry trade unwind with a more calibrated anomaly boundary. Z-Score was retained as a baseline comparison metric.
 ---
 
 ## 🔍 Improvements Made
