@@ -372,7 +372,7 @@ Consumer groups:
 
 ---
 
-## 4. Time Complexity Cheat Sheet
+## 4. Time Complexity Analysis
 
 ```
 Operation                          | Complexity | Example (500 records)
